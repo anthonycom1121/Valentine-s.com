@@ -1,1 +1,165 @@
-# Valentine-s.com
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine's Day Invitation</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #ff7eb9, #ffac81);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    position: relative;
+    width: 400px;
+    height: 500px; /* Increased height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .card {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .message {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  .btn-yes {
+    background-color: #2ecc71; /* Green color for YES button */
+    color: #fff;
+  }
+  .btn-no {
+    background-color: #e74c3c; /* Red color for NO button */
+    color: #fff;
+  }
+  .btn:hover {
+    opacity: 0.8;
+  }
+  .image-container {
+    position: absolute;
+    top: -150px; /* Adjusted position */
+    left: 50%; /* Adjusted left position */
+    transform: translateX(-50%);
+  }
+  .image-container img {
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  .message-container {
+    position: absolute;
+    bottom: 50px; /* Adjusted position */
+    width: 100%;
+    text-align: center;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s ease; /* Smooth transition */
+    pointer-events: none; /* Disable pointer events */
+    z-index: 1; /* Ensure it's above other content */
+  }
+  .message-container.show {
+    opacity: 1; /* Show message container */
+  }
+  .message-container p {
+    background-color: rgba(23, 133, 187, 0.8); /* Semi-transparent background */
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    display: inline-block;
+  }
+  .btn-no {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container"> <!-- Added container div -->
+  <div class="image-container">
+    <img src="images/mi.jpeg" alt="Valentine's Day Image">
+  </div>
+  <div class="card">
+    <div class="message">
+      <p>Will you be my Valentine, Michelle?</p>
+    </div>
+    <button class="btn btn-yes" onclick="respond('yes')">YES</button>
+  </div>
+</div>
+
+<div class="message-container" id="messageContainer"></div>
+
+<button class="btn btn-no" onclick="changeNoButtonPosition()">NO</button>
+
+<script>
+  var noButtonMessages = [
+    "Are you sure?",
+    "If you say no, I'll be sad...",
+    "So so so very sad...",
+    "Ok fine...",
+    "Just kidding!",
+    "Please say yes...",
+    "NO"
+  ];
+
+  var noButtonMessageIndex = 0;
+
+  function respond(answer) {
+    if (answer === 'yes') {
+      showMessage('🎉 YES, HAHAHAHAHAHAHAHA! ❤️');
+      setTimeout(function() {
+        window.location.href = "see.html"; // Redirect to see.html after 3 seconds
+      }, 3000);
+    }
+  }
+
+  function showMessage(message) {
+    var messageContainer = document.getElementById('messageContainer');
+    messageContainer.innerHTML = '<p>' + message + '</p>';
+    messageContainer.classList.add('show'); // Show the message container
+    setTimeout(function() {
+      messageContainer.classList.remove('show'); // Hide the message container after 3 seconds
+    }, 3000);
+  }
+
+  function changeNoButtonPosition() {
+    var button = document.querySelector('.btn-no');
+    var maxX = window.innerWidth - button.offsetWidth;
+    var maxY = window.innerHeight - button.offsetHeight;
+    var randomX = Math.floor(Math.random() * maxX);
+    var randomY = Math.floor(Math.random() * maxY);
+    button.style.right = randomX + 'px';
+    button.style.bottom = randomY + 'px';
+    
+    showMessage(noButtonMessages[noButtonMessageIndex]);
+    noButtonMessageIndex = (noButtonMessageIndex + 1) % noButtonMessages.length;
+  }
+</script>
+
+</body>
+</html>
+
